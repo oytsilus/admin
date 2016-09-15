@@ -18,6 +18,9 @@
 			$this->load->library(array('no_format','tanggal','string'));
 		}
 		
+		/**
+		* index 
+		**/
 		function index(){
 			$this->is_logged_in();
 			$this->load->model('model_admin','ma');
