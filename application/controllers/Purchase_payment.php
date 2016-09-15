@@ -19,7 +19,11 @@
 		}
 		
 		/**
+<<<<<<< HEAD
 		* index 
+=======
+		* index
+>>>>>>> 2a9679e08a6c50c85f279f20d8cbe49b3d742d1f
 		**/
 		function index(){
 			$this->is_logged_in();
