@@ -80,7 +80,7 @@
 		}
 		
 		/**
-		* function : create
+		* function : create()	
 		**/
 		function create(){
 			$this->is_logged_in();
