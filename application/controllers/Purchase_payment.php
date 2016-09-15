@@ -79,6 +79,9 @@
 			}
 		}
 		
+		/**
+		* function : create
+		**/
 		function create(){
 			$this->is_logged_in();
 			$this->load->model('model_admin','ma');
