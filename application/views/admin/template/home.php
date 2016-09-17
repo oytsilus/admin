@@ -196,8 +196,8 @@
                   </li>
 				  <li><a><i class="fa fa-users"></i> User <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url('m_user');?>">Daftar User</a></li>
-						<li><a href="<?php echo base_url('m_user/create');?>">Buat User Baru</a></li>
+                        <li><a href="<?php echo base_url('users');?>">Daftar User</a></li>
+						<li><a href="<?php echo base_url('users/create');?>">Buat User Baru</a></li>
                     </ul>
                   </li>
                 </ul>
