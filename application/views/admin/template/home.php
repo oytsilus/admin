@@ -7,36 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?php echo $site_title.' - '.$page_title;?></title>
+    <title><?php echo $site_title.' - '.$page_title; ?></title>
 
     <!-- Bootstrap -->
-    <link href="<?php echo base_url('assets');?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="<?php echo base_url('assets');?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="<?php echo base_url('assets');?>/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
-    <link href="<?php echo base_url('assets');?>/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    <link href="<?php echo base_url('assets');?>/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets'); ?>/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
-    <link href="<?php echo base_url('assets');?>/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    
-    <?php 
-	if(isset($css_scripts)){ 
-            foreach($css_scripts as $css){
-    ?>
-    	<link href="<?=site_url('assets/'.$css.'.css');?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url('assets'); ?>/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+
     <?php
-            } //endforeach
-	} //endif
+    if (isset($css_scripts)) {
+        foreach ($css_scripts as $css) {
+            ?>
+    	<link href="<?=site_url('assets/'.$css.'.css'); ?>" rel="stylesheet" type="text/css" />
+    <?php
+
+        } //endforeach
+    } //endif
     ?>
 
     <!-- Custom Theme Style -->
-    <link href="<?php echo base_url('assets');?>/build/css/custom.css" rel="stylesheet">
-	
+    <link href="<?php echo base_url('assets'); ?>/build/css/custom.css" rel="stylesheet">
+
 	<!-- Bootstrap Toggle Style -->
-	<link href="<?php echo base_url('assets');?>/vendors/bootstrap-toggle/css/bootstrap-toggle.css" rel="stylesheet">
+	<link href="<?php echo base_url('assets'); ?>/vendors/bootstrap-toggle/css/bootstrap-toggle.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -57,7 +58,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2><?php echo (! empty( $this->auth_role ) ? $this->auth_username : NULL)?></h2>
+                <h2><?php echo !empty($this->auth_role) ? $this->auth_username : null?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -71,48 +72,48 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url('home');?>">Dashboard</a></li>
+                      <li><a href="<?php echo base_url('home'); ?>">Dashboard</a></li>
                     </ul>
                   </li>
 				  <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a>Supplier<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('m_supplier'));?>">Daftar Supplier</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('m_supplier'); ?>">Daftar Supplier</a>
                             </li>
-                            <li><a href="<?php echo(base_url('m_supplier/create'));?>">Tambah Supplier Baru</a>
+                            <li><a href="<?php echo base_url('m_supplier/create'); ?>">Tambah Supplier Baru</a>
                             </li>
                           </ul>
                         </li>
 						<li><a>Customer<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('m_customer'));?>">Daftar Customer</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('m_customer'); ?>">Daftar Customer</a>
                             </li>
-                            <li><a href="<?php echo(base_url('m_customer/create'));?>">Tambah Customer Baru</a>
+                            <li><a href="<?php echo base_url('m_customer/create'); ?>">Tambah Customer Baru</a>
                             </li>
                           </ul>
                         </li>
 						<li><a>Unit<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('m_unit'));?>">Daftar Unit</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('m_unit'); ?>">Daftar Unit</a>
                             </li>
-                            <li><a href="<?php echo(base_url('m_unit/create'));?>">Tambah Unit Baru</a>
+                            <li><a href="<?php echo base_url('m_unit/create'); ?>">Tambah Unit Baru</a>
                             </li>
                           </ul>
                         </li>
 						<li><a>Item<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('m_product'));?>">Daftar Item</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('m_product'); ?>">Daftar Item</a>
                             </li>
-                            <li><a href="<?php echo(base_url('m_product/create'));?>">Tambah Item Baru</a>
+                            <li><a href="<?php echo base_url('m_product/create'); ?>">Tambah Item Baru</a>
                             </li>
                           </ul>
                         </li>
 						<li><a>Harga<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li><a href="<?php echo(base_url('m_price'));?>">Daftar Harga</a>
+                            <li><a href="<?php echo base_url('m_price'); ?>">Daftar Harga</a>
                             </li>
-							<li class="sub_menu"><a href="<?php echo(base_url('m_price/create'));?>">Set Harga</a>
+							<li class="sub_menu"><a href="<?php echo base_url('m_price/create'); ?>">Set Harga</a>
                             </li>
                           </ul>
                         </li>
@@ -122,25 +123,25 @@
                     <ul class="nav child_menu">
                       <li><a>Purchase Order<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('purchase_order'));?>">Daftar PO</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('purchase_order'); ?>">Daftar PO</a>
                             </li>
-                            <li><a href="<?php echo(base_url('purchase_order/create'));?>">Buat PO Baru</a>
+                            <li><a href="<?php echo base_url('purchase_order/create'); ?>">Buat PO Baru</a>
                             </li>
                           </ul>
 					  </li>
 					  <li><a>Penerimaan Barang	<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('receiving'));?>">Daftar Terima Barang</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('receiving'); ?>">Daftar Terima Barang</a>
                             </li>
-                            <li><a href="<?php echo(base_url('receiving/create'));?>">Buat Penerimaan Baru</a>
+                            <li><a href="<?php echo base_url('receiving/create'); ?>">Buat Penerimaan Baru</a>
                             </li>
                           </ul>
 					  </li>
 					  <li><a>Pembayaran<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('purchase_payment'));?>">Daftar Pembayaran</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('purchase_payment'); ?>">Daftar Pembayaran</a>
                             </li>
-                            <li><a href="<?php echo(base_url('purchase_payment/create'));?>">Buat Pembayaran</a>
+                            <li><a href="<?php echo base_url('purchase_payment/create'); ?>">Buat Pembayaran</a>
                             </li>
                           </ul>
 					  </li>
@@ -150,54 +151,41 @@
                     <ul class="nav child_menu">
                       <li><a>Sales Order<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('order'));?>">Daftar Order</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('order'); ?>">Daftar Order</a>
                             </li>
-                            <li><a href="<?php echo(base_url('order/create'));?>">Buat Order Baru</a>
+                            <li><a href="<?php echo base_url('order/create'); ?>">Buat Order Baru</a>
                             </li>
                           </ul>
 					  </li>
 					  <li><a>Pengiriman Barang	<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('delivery'));?>">Daftar Kiriman Barang</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('delivery'); ?>">Daftar Kiriman Barang</a>
                             </li>
-                            <li><a href="<?php echo(base_url('delivery/create'));?>">Buat Pengiriman Baru</a>
+                            <li><a href="<?php echo base_url('delivery/create'); ?>">Buat Pengiriman Baru</a>
                             </li>
                           </ul>
 					  </li>
 					  <li><a>Pembayaran<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('order_payment'));?>">Daftar Pembayaran</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('order_payment'); ?>">Daftar Pembayaran</a>
                             </li>
-                            <li><a href="<?php echo(base_url('order_payment/create'));?>">Buat Pembayaran</a>
-                            </li>
-                          </ul>
-					  </li>
-                    </ul>
-                  </li>
-				  <li><a><i class="fa fa-file-o"></i> Report <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a>Pembelian<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('receiving/report_delivery'));?>">R. Pembelian /Supplier</a>
-                            </li>
-							<li class="sub_menu"><a href="<?php echo(base_url('receiving/order_recap'));?>">Rekap Pembelian</a>
-                            </li>
-                          </ul>
-					  </li>
-					  <li><a>Penjualan<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo(base_url('delivery/report_delivery'));?>">R. Penjualan /Customer</a>
-                            </li>
-							<li class="sub_menu"><a href="<?php echo(base_url('delivery/sales_recap'));?>">Rekap Penjualan</a>
+                            <li><a href="<?php echo base_url('order_payment/create'); ?>">Buat Pembayaran</a>
                             </li>
                           </ul>
 					  </li>
                     </ul>
                   </li>
-				  <li><a><i class="fa fa-users"></i> User <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-o"></i> Report <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url('users');?>">Daftar User</a></li>
-						<li><a href="<?php echo base_url('users/create');?>">Buat User Baru</a></li>
+                        <li><a href="<?php echo base_url('receiving/report_delivery'); ?>">R.Pembelian /Supplier</a></li>
+	                      <li><a href="<?php echo base_url('delivery/report_delivery'); ?>">R.Penjualan /Customer</a></li>
+                        <li><a href="<?php echo base_url('report/laba_rugi'); ?>">Laba Rugi</a></li>
+                    </ul>
+                  </li>
+		              <li><a><i class="fa fa-users"></i> User <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url('users'); ?>">Daftar User</a></li>
+	                      <li><a href="<?php echo base_url('users/create'); ?>">Buat User Baru</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -208,7 +196,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?php echo base_url('logout');?>">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="<?php echo base_url('logout'); ?>">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -227,12 +215,12 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo base_url('assets')?>/images/img.jpg" alt=""><?php echo (! empty( $this->auth_role ) ? $this->auth_username : NULL)?>
+                    <img src="<?php echo base_url('assets')?>/images/img.jpg" alt=""><?php echo !empty($this->auth_role) ? $this->auth_username : null?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
-                    <li><a href="<?php echo base_url('logout');?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="<?php echo base_url('logout'); ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -250,7 +238,7 @@
         <!-- footer content -->
         <footer class="no-print">
           <div class="pull-right">
-              <?php echo $site_title;?> &COPY; 2016
+              <?php echo $site_title; ?> &COPY; 2016
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -259,20 +247,21 @@
     </div>
 
     <!-- Javascripts -->
-    <?php 
-	if(isset($js_scripts)){ 
-            foreach($js_scripts as $js){
-    ?>
-    	<script src="<?=base_url('assets/'.$js.'.js');?>"></script>
     <?php
-            } //endforeach
-	} //endif
+    if (isset($js_scripts)) {
+        foreach ($js_scripts as $js) {
+            ?>
+    	<script src="<?=base_url('assets/'.$js.'.js'); ?>"></script>
+    <?php
+
+        } //endforeach
+    } //endif
     ?>
-        
+
     <!-- Custom Theme Scripts -->
-    <script src="<?php echo base_url('assets');?>/build/js/custom.min.js"></script>
-        
-    <?php (isset($js_page) ? $this->load->view($js_page) : NULL);?>
-	<?php (isset($js_page2) ? $this->load->view($js_page2) : NULL);?>
+    <script src="<?php echo base_url('assets'); ?>/build/js/custom.min.js"></script>
+
+    <?php (isset($js_page) ? $this->load->view($js_page) : null); ?>
+	<?php (isset($js_page2) ? $this->load->view($js_page2) : null); ?>
   </body>
 </html>

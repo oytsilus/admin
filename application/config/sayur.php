@@ -9,11 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -----------------------------------------------------------------
-|						LEVELS AND ROLES							
+|						LEVELS AND ROLES
 | -----------------------------------------------------------------
 | This definition sets the levels and roles that will be used for authentication.
-| 
-| Keep in mind that if you use key numbering higher than 255,  
+|
+| Keep in mind that if you use key numbering higher than 255,
 | the auth_level field of the users table will need to be changed
 | to smallint, or another integer datatype that handles larger numbers.
 |
@@ -37,6 +37,7 @@ $config['order_prefix'] = 'SO'; // Sales Order
 $config['order_inv_prefix'] = 'INV'; // Invoice
 $config['delivery_prefix'] = 'SJ'; // Delivery
 $config['op_prefix'] = 'OP'; // Sales Payment
+$config['labarugi_prefix'] = 'LR';
 
 /* Company Credential */
 $config['company_name'] = 'Ibu Atie';
