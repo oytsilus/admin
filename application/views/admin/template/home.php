@@ -159,7 +159,7 @@
 					  </li>
 					  <li><a>Pengiriman Barang	<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url('delivery'); ?>">Daftar Kiriman Barang</a>
+                            <li class="sub_menu"><a href="<?php echo base_url('delivery'); ?>">Daftar Pengiriman</a>
                             </li>
                             <li><a href="<?php echo base_url('delivery/create'); ?>">Buat Pengiriman Baru</a>
                             </li>

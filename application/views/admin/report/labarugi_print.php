@@ -19,14 +19,16 @@
 		  <!-- info row -->
 		  <div class="row invoice-info">
 			<div class="col-sm-12 invoice-col div-kiri-print">
-			  Customer :
+				<?php if($mc_id != 0) { ?>
+				Customer :
 			  <address>
-				  <strong><?php echo $mc_name;?></strong>
+					<strong><?php echo $mc_name;?></strong>
 				  <br><?php echo $mc_address;?>
 				  <br>Telp : <?php echo $mc_phone1;?>
 				  <br>Fax : <?php echo $mc_fax;?>
 				  <br>Email : <?php echo $mc_email;?>
 			  </address>
+				<?php }	?>
 			</div>
 			<!-- /.col -->
 		  </div>
@@ -39,6 +41,9 @@
 				<thead>
 				  <tr>
 					<th class="text-center">No</th>
+					<?php if($mc_id == 0) { ?>
+					<th class="text-center">Customer</th>
+					<?php } ?>
 					<th class="text-center">Order No</th>
 					<th class="text-center">Nama Item</th>
 					<th class="text-center">Penjualan</th>
@@ -54,6 +59,11 @@
 					?>
 					<tr>
 						<td><?php echo $no;?></td>
+						<?php if($mc_id == 0) { ?>
+						<td>
+							<?php echo $row['mc_name']; ?>
+						</td>
+						<?php } ?>
 						<td>
 							<?php echo $row['to_no']; ?>
 						</td>
@@ -74,7 +84,7 @@
 				</tbody>
 				<tfoot>
 				  <tr>
-					<th colspan="5" class="text-right">TOTAL LABA-RUGI</th>
+					<th colspan="<?php echo ($mc_id != 0 ? 5 : 6);?>" class="text-right">TOTAL LABA-RUGI</th>
 					<th class="text-right"><?php echo $this->no_format->idr_money(floatval($total_labarugi)); ?></th>
 				  </tr>
 				</tfoot>

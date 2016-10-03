@@ -78,7 +78,7 @@ td {
 			  <div class="form-group">
 				<div class="col-md-6 col-md-offset-3">
 				  <button type="reset" class="btn btn-danger">Batal</button>
-				  <button id="send" type="submit" class="btn btn-success" disabled="disabled">Generate</button>
+				  <button id="send" type="submit" class="btn btn-success">Generate</button>
 				</div>
 			  </div>
 			</form>

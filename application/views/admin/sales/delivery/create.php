@@ -71,7 +71,7 @@ td {
 						<?php echo cb_customer();?>
 					</div>
 				  </div>
-				  
+
 			  </div>
 			  <div class="form-group">
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
@@ -115,7 +115,7 @@ td {
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 					<label for="tgl" class="col-md-4 col-sm-4 col-xs-12 control-label"></label>
 					<div class="col-md-8 col-sm-8 col-xs-12">
-						<button type="button" id="btn_add_item" class="btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Item</button>
+						<!--<button type="button" id="btn_add_item" class="btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Item</button>-->
 						<button type="button" id="btn_choose_order" class="btn btn-primary"><i class="fa fa-file"></i> Pilih Order</button>
 					</div>
 				  </div>
@@ -123,7 +123,7 @@ td {
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 					<label for="tgl" class="col-md-4 control-label"></label>
 					<div class="col-md-8">
-						
+
 					</div>
 				  </div>
 			  </div>
@@ -170,9 +170,9 @@ td {
 			<h4 class="modal-title" id="myModalLabel">Pilih Item</h4>
 		  </div>
 		  <div class="modal-body" id="myModalBody">
-			
+
 		  </div>
-		  
+
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 			<button id="submit_modal" type="button" class="btn btn-success">Pilih</button>
@@ -193,9 +193,9 @@ td {
 			<h4 class="modal-title" id="myModalLabel">Pilih Order</h4>
 		  </div>
 		  <div class="modal-body table-responsive" id="myModalBody2">
-			
+
 		  </div>
-		  
+
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 			<button id="submit_modal2" type="button" class="btn btn-success">Pilih</button>

@@ -5,22 +5,22 @@
 		private $folder_view = 'admin/sales/';
 		private $controller = 'order';
 		private $table = 't_order';
-		
+
 		function __construct() {
 			parent::__construct();
-			
+
 			date_default_timezone_set('Asia/Jakarta');
-			
+
 			$this->load->helper('url');
 			$this->load->helper('form');
 			$this->load->model('model_order','mo');
 			$this->load->library(array('no_format','tanggal'));
 		}
-		
+
 		function index(){
 			$this->is_logged_in();
 			$this->load->model('model_admin','ma');
-			
+
 			if( ! empty( $this->auth_role ) ) {
 				$data = array(
 						'site_title' => $this->site_title,
@@ -62,23 +62,24 @@
 							'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min' /* Datatable */
 						)
 				);
-				
+
 				// Get PO
 				$q = $this->mo->get_order();
 				$data['num_rows'] = $q['num_rows'];
 				$data['result'] = $q['result'];
-				
+
 				$this->load->view('admin/template/home',$data);
 			}
 			else {
 				redirect('logout');
 			}
 		}
-		
+
 		function create(){
 			$this->is_logged_in();
 			$this->load->model('model_admin','ma');
-			
+			$this->load->model('model_report','mr');
+
 			if( ! empty( $this->auth_role ) ) {
 				$data = array(
 						'site_title' => $this->site_title,
@@ -94,7 +95,7 @@
 							'vendors/validator/validator', /* Validator.js */
 							'js/moment/moment.min', /* Bootstrap daterangepicker */
 							'js/datepicker/daterangepicker', /* Bootstrap daterangepicker */
-							'vendors/select2/dist/js/select2.full.min', /* Select2 */	
+							'vendors/select2/dist/js/select2.full.min', /* Select2 */
 							'vendors/datatables.net/js/jquery.dataTables.min', /* Datatables */
 							'vendors/datatables.net-bs/js/dataTables.bootstrap.min', /* Datatables */
 							'vendors/datatables.net-buttons/js/dataTables.buttons.min', /* Datatables */
@@ -107,9 +108,9 @@
 							'vendors/datatables.net-responsive/js/dataTables.responsive.min', /* Datatables */
 							'vendors/datatables.net-responsive-bs/js/responsive.bootstrap', /* Datatables */
 							'vendors/datatables.net-scroller/js/datatables.scroller.min', /* Datatables */
-							'vendors/accounting/accounting.min', /* Accounting.js */							
+							'vendors/accounting/accounting.min', /* Accounting.js */
 							'vendors/bootbox/bootbox.min', /* Bootbox */
-							'vendors/bootstrap-toggle/js/bootstrap-toggle.min' /* Bootstrap Toggle.js */	
+							'vendors/bootstrap-toggle/js/bootstrap-toggle.min' /* Bootstrap Toggle.js */
 						),
 						'css_scripts' => array(
 							'vendors/bootstrap/dist/css/bootstrap.min', /* Bootstrap */
@@ -126,23 +127,23 @@
 						'date_now' => date('m/d/Y'),
 						'date_inv' => date('m/d/Y')
 				);
-				
+
 				if($_POST) {
 					$post = $this->input->post();
-					
+
 					$cust = explode('|',$post['customer']);
 					$date = explode('/',$post['tgl']); // mm/dd/yyyy
 					$date1 = explode('/',$post['inv_date']); // mm/dd/yyyy
 					$date2 = explode('/',$post['inv_due_date']); // mm/dd/yyyy
-					
+
 					$order_date = (count($date) > 0 ? $date[2].'-'.$date[0].'-'.$date[1] : NULL); //mm/dd/yyyy
 					$inv_date = (count($date1) > 0 ? $date1[2].'-'.$date1[0].'-'.$date1[1] : NULL);
-					
+
 					// Get customer
 					$qc = $this->db->get_where('m_customer',array('mc_id'=>$cust[0]))->row_array();
 					$doc_no = $this->no_format->generate_order_no($post['tgl']);
 					$doc2_no = $this->no_format->generate_order_inv_no($post['inv_due_date']);
-					
+
 					// Insert : tbl_purchase
 					$arr_ins0 = array(
 						'to_no' => $doc_no,
@@ -171,7 +172,7 @@
 					);
 					if($this->db->insert($this->table,$arr_ins0)) {
 						$id = $this->db->insert_id();
-						
+
 						$x = 0;
 						$dateTkirim = array();
 						foreach($post['qty'] as $item) {
@@ -184,7 +185,7 @@
 									$dateTkirim = explode('/', $post['jkirim'][$x]); // mm/dd/yyyy
 									$newDateTKirim = $dateTkirim[2].'-'.$dateTkirim[0].'-'.$dateTkirim[1];
 								}
-								
+
 								$arr_ins[] = array(
 									'to_id' => $id,
 									'mp_id' => $params[1],
@@ -203,11 +204,11 @@
 							}
 							$x++;
 						}
-					
+
 						$this->db->insert_batch($this->table.'_detail', $arr_ins);
-						$first_detail_id = $this->db->insert_id(); 
+						$first_detail_id = $this->db->insert_id();
 						$last_detail_id = $first_detail_id+(count($arr_ins)-1);
-						
+
 						/*
 						* disabled dulu, belum pasti
 						// Insert Purchase Invoice
@@ -218,17 +219,17 @@
 								'mc_name' => $cust[2],
 								'mc_address' => $qc['mc_address'],
 								'mc_phone1' => $qc['mc_phone1'],
-								'mc_email' => $qc['mc_email'],	
+								'mc_email' => $qc['mc_email'],
 								'mc_address' => $post['ship_address'],
 								'toi_date' => $date1[2].'-'.$date1[0].'-'.$date1[1],
 								'toi_no' => $post['inv_no'],
 								'toi_due_date' => $date2[2].'-'.$date2[0].'-'.$date2[1],
 								'toi_flag' => 1
 							);
-							
+
 							if($this->db->insert($this->table2,$arr_ins1)) {
 								$id2 = $this->db->insert_id();
-								
+
 								$y = 0;
 								$dateTkirim = array();
 								foreach($post['qty'] as $item) {
@@ -241,7 +242,7 @@
 											$dateTkirim = explode('/', $post['jkirim'][$y]); // mm/dd/yyyy
 											$newDateTKirim = $dateTkirim[2].'-'.$dateTkirim[0].'-'.$dateTkirim[1];
 										}
-										
+
 										$arr_ins2[] = array(
 											'toi_id' => $id2,
 											'mp_id' => $params[1],
@@ -258,42 +259,46 @@
 											'tpid_qty' => $post['qty'][$y],
 											'tpid_flag' => 1
 										);
-										
+
 										$first_detail_id++;
 									}
 									$y++;
 								}
-								
+
 								$this->db->insert_batch($this->table2.'_detail', $arr_ins2);
 							}
 						}
 						*/
-						
+
+						// Insert report laba Rugi
+						$this->mr->insert_labarugi($id);
+
 						$this->session->set_flashdata('msg','Data tersimpan!');
 						$this->session->set_flashdata('next_page',base_url($this->controller.'/print_order/'.$id));
 						$this->session->set_flashdata('next_page2',base_url($this->controller.'/print_invoice/'.$id));
 						redirect($this->controller.'/create');
 					}
 				}
-				
+
 				// Order No
 				$data['order_no'] = $this->no_format->generate_order_no($data['date_now']);
-				
+
 				// Invoice No
 				$data['inv_no'] = $this->no_format->generate_order_inv_no($data['date_now']);
 				$data['company_address'] = $this->config->item('company_address');
-				
+
 				$this->load->view('admin/template/home',$data);
 			}
 			else {
 				redirect('logout');
 			}
 		}
-		
+
 		function edit($id=0){
 			$this->is_logged_in();
 			$this->load->model('model_admin','ma');
-			
+			$this->load->model('model_report','mr');
+
 			if( ! empty( $this->auth_role ) ) {
 				$data = array(
 						'site_title' => $this->site_title,
@@ -310,7 +315,7 @@
 							'vendors/validator/validator', /* Validator.js */
 							'js/moment/moment.min', /* Bootstrap daterangepicker */
 							'js/datepicker/daterangepicker', /* Bootstrap daterangepicker */
-							'vendors/select2/dist/js/select2.full.min', /* Select2 */	
+							'vendors/select2/dist/js/select2.full.min', /* Select2 */
 							'vendors/datatables.net/js/jquery.dataTables.min', /* Datatables */
 							'vendors/datatables.net-bs/js/dataTables.bootstrap.min', /* Datatables */
 							'vendors/datatables.net-buttons/js/dataTables.buttons.min', /* Datatables */
@@ -323,9 +328,9 @@
 							'vendors/datatables.net-responsive/js/dataTables.responsive.min', /* Datatables */
 							'vendors/datatables.net-responsive-bs/js/responsive.bootstrap', /* Datatables */
 							'vendors/datatables.net-scroller/js/datatables.scroller.min', /* Datatables */
-							'vendors/accounting/accounting.min', /* Accounting.js */							
+							'vendors/accounting/accounting.min', /* Accounting.js */
 							'vendors/bootbox/bootbox.min', /* Bootbox */
-							'vendors/bootstrap-toggle/js/bootstrap-toggle.min' /* Bootstrap Toggle.js */	
+							'vendors/bootstrap-toggle/js/bootstrap-toggle.min' /* Bootstrap Toggle.js */
 						),
 						'css_scripts' => array(
 							'vendors/bootstrap/dist/css/bootstrap.min', /* Bootstrap */
@@ -341,20 +346,20 @@
 						),
 						'date_now' => date('m/d/Y')
 				);
-				
+
 				// Get po
 				$q = $this->db->get_where('t_order',array('to_id'=>$id));
 				$res = $q->row_array();
-				
+
 				// Get po detail
 				$q = $this->mo->get_detail_order($id);
 				$data['num_rows'] = $q['num_rows'];
 				$data['result'] = $q['result'];
-				
+
 				$to_date = ($res['to_date'] != '' && $res['to_date'] != '0000-00-00' ? explode('-',$res['to_date']) : NULL); // yyyy-mm-dd
 				$toi_date = ($res['toi_date'] != '' && $res['toi_date'] != '0000-00-00' ? explode('-',$res['toi_date']) : NULL); // yyyy-mm-dd
 				$toi_duedate = ($res['toi_due_date'] != '' || $res['toi_due_date'] != '0000-00-00' ? explode('-',$res['toi_due_date']) : NULL); // yyyy-mm-dd
-				
+
 				$data['id'] = $id;
 				$data['order_no'] = $res['to_no'];
 				$data['to_date'] = ($to_date != NULL ? $to_date[1].'/'.$to_date[2].'/'.$to_date[0] : NULL);
@@ -377,21 +382,25 @@
 				$data['to_ppn'] = $res['to_ppn'];
 				$data['to_ppn_nominal'] = $res['to_ppn_nominal'];
 				$data['to_total'] = $res['to_total'];
-				
+
 				$qDet = $this->mo->get_detail_order($id);
 				$data['result_detail'] = $qDet['result'];
 				$data['num_rows_detail'] = $qDet['num_rows'];;
-				
+
 				if($_POST) {
 					$post = $this->input->post();
 					$cust = explode('|',$post['customer']);
 					$date = explode('/',$post['tgl']); // mm/dd/yyyy
 					$date1 = explode('/',$post['inv_date']); // mm/dd/yyyy
-					$date2 = explode('/',$post['inv_due_date']); // mm/dd/yyyy
-					
+					$due_date = NULL;
+					if($post['inv_due_date'] != '') {
+							$date2 = explode('/',$post['inv_due_date']); // mm/dd/yyyy
+							$due_date = $date2[2].'-'.$date2[0].'-'.$date2[1];
+					}
+
 					// Get customer
 					$qc = $this->db->get_where('m_customer',array('mc_id'=>$cust[0]))->row_array();
-					
+
 					// updte : tbl_order
 					$arr_ins0 = array(
 						'mc_id' => $cust[0],
@@ -413,14 +422,14 @@
 						'to_total' => $post['total'],
 						'toi_date' => $date1[2].'-'.$date1[0].'-'.$date1[1],
 						'toi_no' => $post['inv_no'],
-						'toi_due_date' => $date2[2].'-'.$date2[0].'-'.$date2[1],
+						'toi_due_date' => $due_date,
 						'to_flag' => 1
 					);
-					
+
 					$this->db->where('to_id',$id);
 					$this->db->update($this->table,$arr_ins0);
 					$affectedRows = $this->db->affected_rows();
-					
+
 					//if($affectedRows > 0) {
 						$x = 0;
 						$dateTkirim = array();
@@ -434,7 +443,7 @@
 									$dateTkirim = explode('/', $post['jkirim'][$x]); // mm/dd/yyyy
 									$newDateTKirim = $dateTkirim[2].'-'.$dateTkirim[0].'-'.$dateTkirim[1];
 								}
-								
+
 								if($item != '0') {
 									// Delete jika tpd_id tidak ada di form
 									// Delete where not exist in array
@@ -448,7 +457,7 @@
 									$this->db->where(array('to_id'=>$id));
 									$this->db->update($this->table.'_detail', array('tod_flag'=>0));
 								}
-								
+
 								// Jika tod_id == 0 => Insert
 								if($post['h_tod_id'][$x] == '0') {
 									$arr_ins = array(
@@ -483,65 +492,73 @@
 										'td_outstanding' => $post['qty'][$x],
 										'td_delivery_date' => $newDateTKirim
 									);
-									
+
 									$this->db->where('tod_id',$post['h_tod_id'][$x]);
 									$this->db->update($this->table.'_detail',$arr_upd);
 								}
 							//}
 							$x++;
 						}
-						
+
+						// Update report laba rugi
+						$this->mr->update_labarugi($id);
+
 						$this->session->set_flashdata('msg','Data tersimpan!');
 						$this->session->set_flashdata('next_page',base_url($this->controller.'/print_order/'.$id));
 						$this->session->set_flashdata('next_page2',base_url($this->controller.'/print_invoice/'.$id));
 						redirect($this->controller.'/edit/'.$id);
 					//}
 				}
-				
+
 				$this->load->view('admin/template/home',$data);
 			}
 			else {
 				redirect('logout');
 			}
 		}
-		
+
 		function delete() {
+			$this->load->model('model_report','mr');
+
 			if($_POST) {
 				// Delete PO detail
 				$this->db->where('to_id',$this->input->post('id'));
 				$this->db->update($this->table.'_detail',array('tod_flag'=>0));
-				
+
 				// Delete PO
 				$this->db->where('to_id',$this->input->post('id'));
 				$this->db->update($this->table,array('to_flag'=>0));
+
+				// Delete laporan laba Rugi
+				$this->mr->delete_labarugi($this->input->post('id'));
 				$res['status'] = 'TRUE';
 			}
 			else {
 				$res['status'] = 'FALSE';
 			}
-			
+
 			echo json_encode($res);
 		}
-		
+
 		function show_modal() {
 			if($_POST) {
 				// Get Harga
 				$q = $this->mo->get_price($this->input->post('mp_id',array()));
 				$data['num_rows_det'] = $q['num_rows'];
 				$data['result_det'] = $q['result'];
-				
+
 				$this->load->view($this->folder_view.$this->controller.'/create_modal',$data);
 			} else {
 				echo "Invalid result!";
 			}
 		}
-		
+
 		function submit_detail() {
 			if($_POST) {
 				if($this->input->post('id','') == '') {
 					echo "Silahkan pilih supplier!";
 				}
-				else {		
+				else {
 					//$id = explode('-',$this->input->post('id',NULL));
 					$id = $this->input->post('id',NULL);
 					// Get Harga
@@ -549,13 +566,13 @@
 					$q = $this->db->get('m_price');
 					$data['num_rows'] = $q->num_rows();
 					$data['result'] = $q->result_array();
-					
+
 					$this->load->view($this->folder_view.$this->controller.'/create_detail',$data);
 				}
 			}
 			else echo "Invalid result!";
 		}
-		
+
 		function print_order($po_id=0) {
 			$this->is_logged_in();
 			if( ! empty( $this->auth_role ) ) {
@@ -577,14 +594,14 @@
 							),
 							'date_now' => date('m/d/Y')
 					);
-					
+
 					// Get Company Data
 					$data['company_name'] = $this->config->item('company_name');
 					$data['company_address'] = $this->config->item('company_address');
 					$data['company_phone'] = $this->config->item('company_phone');
 					$data['company_fax'] = $this->config->item('company_fax');
 					$data['company_email'] = $this->config->item('company_email');
-					
+
 					// Get PO
 					$user = get_user($this->auth_user_id);
 					$q = $this->db->get_where('t_order',array('to_id'=>$po_id))->row_array();
@@ -605,18 +622,18 @@
 					$data['to_ppn_nominal'] = $this->no_format->idr_money($q['to_ppn_nominal']);
 					$data['to_total'] = $this->no_format->idr_money($q['to_total']);
 					$data['prepared_by'] = $user['full_name'];
-					
+
 					// Get PO Detail
 					//$q2 = $this->db->get_where('t_purchase_detail', array('to_id'=>$po_id,'tpd_flag'=>1));
 					$q2 = $this->mo->get_detail_order($po_id);
 					$data['num_rows'] = $q2['num_rows'];
 					$data['result'] = $q2['result'];
-					
+
 					$this->load->view('admin/template/home',$data);
 				}
 			}
 		}
-		
+
 		function pdf($po_id=0){
 			$data = array(
 					'site_title' => $this->site_title,
@@ -624,14 +641,14 @@
 					'page' => $this->folder_view.$this->controller.'/pdf_po',
 					'date_now' => date('m/d/Y')
 			);
-			
+
 			// Get Company Data
 			$data['company_name'] = $this->config->item('company_name');
 			$data['company_address'] = $this->config->item('company_address');
 			$data['company_phone'] = $this->config->item('company_phone');
 			$data['company_fax'] = $this->config->item('company_fax');
 			$data['company_email'] = $this->config->item('company_email');
-			
+
 			// Get PO
 			$q = $this->db->get_where('t_order',array('to_id'=>$po_id))->row_array();
 			$data['to_no'] = $q['to_no'];
@@ -651,25 +668,25 @@
 			$data['to_ppn_nominal'] = $this->no_format->idr_money($q['to_ppn_nominal']);
 			$data['to_total'] = $this->no_format->idr_money($q['to_total']);
 			$data['prepared_by'] = $this->config->item('company_prepared_by');
-			
+
 			// Get PO Detail
 			$q2 = $this->db->get_where('t_purchase_detail', array('to_id'=>$po_id,'tpd_flag'=>1));
 			$data['num_rows'] = $q2->num_rows();
 			$data['result'] = $q2->result_array();
-			
+
 			$this->load->view($this->folder_view.$this->controller.'/pdf_po',$data);
 			// Get output html
 			//$html = $this->output->get_output();
-			
+
 			// Load library
 			//$this->load->library('dompdf_gen');
-			
+
 			// Convert to PDF
 			//$this->dompdf->load_html($html);
 			//$this->dompdf->set_paper('A4', 'portrait');
 			//$this->dompdf->render();
 			//$this->dompdf->stream("welcome.pdf");
-			
+
 			//$this->pdf->load_view($html);
 			// (Optional) Setup the paper size and orientation
 			/**
@@ -680,7 +697,7 @@
 			//$this->pdf->render();
 			//$this->pdf->stream("name-file.pdf");
 		}
-		
+
 		function pdf2($po_id=0){
 			$data = array(
 					'site_title' => $this->site_title,
@@ -699,14 +716,14 @@
 					),
 					'date_now' => date('m/d/Y')
 			);
-			
+
 			// Get Company Data
 			$data['company_name'] = $this->config->item('company_name');
 			$data['company_address'] = $this->config->item('company_address');
 			$data['company_phone'] = $this->config->item('company_phone');
 			$data['company_fax'] = $this->config->item('company_fax');
 			$data['company_email'] = $this->config->item('company_email');
-			
+
 			// Get PO
 			$q = $this->db->get_where('t_purchase',array('to_id'=>$po_id))->row_array();
 			$data['mc_id'] = $q['mc_id'];
@@ -725,12 +742,12 @@
 			$data['to_ppn_nominal'] = $this->no_format->idr_money($q['to_ppn_nominal']);
 			$data['to_total'] = $this->no_format->idr_money($q['to_total']);
 			$data['prepared_by'] = $this->config->item('company_prepared_by');
-			
+
 			// Get PO Detail
 			$q2 = $this->db->get_where('t_purchase_detail', array('to_id'=>$po_id,'tpd_flag'=>1));
 			$data['num_rows'] = $q2->num_rows();
 			$data['result'] = $q2->result_array();
-				
+
 			$this->load->view($this->folder_view.$this->controller.'/pdf_po');
 			// (Optional) Setup the paper size and orientation
 			/**
@@ -741,7 +758,7 @@
 			$this->pdf->render();
 			$this->pdf->stream("name-file.pdf");
 		}
-		
+
 		function print_invoice($po_id=0) {
 			$this->is_logged_in();
 			if( ! empty( $this->auth_role ) ) {
@@ -763,14 +780,14 @@
 							),
 							'date_now' => date('m/d/Y')
 					);
-					
+
 					// Get Company Data
 					$data['company_name'] = $this->config->item('company_name');
 					$data['company_address'] = $this->config->item('company_address');
 					$data['company_phone'] = $this->config->item('company_phone');
 					$data['company_fax'] = $this->config->item('company_fax');
 					$data['company_email'] = $this->config->item('company_email');
-					
+
 					// Get Order
 					$user = get_user($this->auth_user_id);
 					$q = $this->db->get_where('t_order',array('to_id'=>$po_id))->row_array();
@@ -791,13 +808,13 @@
 					$data['to_ppn_nominal'] = $this->no_format->idr_money($q['to_ppn_nominal']);
 					$data['to_total'] = $this->no_format->idr_money($q['to_total']);
 					$data['prepared_by'] = $user['full_name'];
-					
+
 					// Get Order Detail
 					//$q2 = $this->db->get_where('t_purchase_detail', array('to_id'=>$po_id,'tpd_flag'=>1));
 					$q2 = $this->mo->get_detail_order($po_id);
 					$data['num_rows'] = $q2['num_rows'];
 					$data['result'] = $q2['result'];
-					
+
 					$this->load->view('admin/template/home',$data);
 				}
 			}

@@ -77,7 +77,6 @@
 		function print_labarugi($cust_id=0,$tgl_from=NULL,$tgl_to=NULL) {
 			$this->is_logged_in();
 			if( ! empty( $this->auth_role ) ) {
-				if($cust_id != 0) {
 					$data = array(
 							'site_title' => $this->site_title,
 							'page_title' => 'Cetak Report Delivery',
@@ -97,14 +96,18 @@
 					);
 
 					// Get Customer
-					$cust = $this->db->get_where('m_customer', array('mc_id'=>$cust_id))->row_array();
 					$data['mc_id'] = $cust_id;
-					$data['mc_name'] = $cust['mc_name'];
-					$data['mc_code'] = $cust['mc_code'];
-					$data['mc_address'] = $cust['mc_address'];
-					$data['mc_phone1'] = $cust['mc_phone1'];
-					$data['mc_fax'] = $cust['mc_fax'];
-					$data['mc_email'] = $cust['mc_email'];
+					if($cust_id != 0) {
+						$cust = $this->db->get_where('m_customer', array('mc_id'=>$cust_id))->row_array();
+						$data['mc_id'] = $cust_id;
+						$data['mc_name'] = $cust['mc_name'];
+						$data['mc_code'] = $cust['mc_code'];
+						$data['mc_address'] = $cust['mc_address'];
+						$data['mc_phone1'] = $cust['mc_phone1'];
+						$data['mc_fax'] = $cust['mc_fax'];
+						$data['mc_email'] = $cust['mc_email'];
+					}
+
 					$data['str_tgl_from'] = $this->tanggal->tgl_indo2($tgl_from);
 					$data['str_tgl_to'] = $this->tanggal->tgl_indo2($tgl_to);
 					$user = get_user($this->auth_user_id);
@@ -117,7 +120,10 @@
 					$data['num_rows'] = $q['num_rows'];
 
 					$this->load->view('admin/template/home',$data);
-				}
 			}
+		}
+
+		public function save_labarugi() {
+			echo $this->mr->insert_labarugi(3);
 		}
 	}

@@ -75,7 +75,7 @@ td {
 						</div>
 					</div>
 				  </div>
-				  
+
 			  </div>
 			  <div class="form-group">
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
@@ -86,7 +86,7 @@ td {
 				  </div>
 
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
-					
+
 				  </div>
 			  </div>
 			  <div class="form-group">
@@ -128,9 +128,9 @@ td {
 					</div>
 				  </div>
 			  </div>
-			  
+
 			  <div class="ln_solid"></div>
-			  
+
 			  <div class="form-group">
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 					<label for="tgl" class="col-md-4 col-sm-4 col-xs-12 control-label"></label>
@@ -142,7 +142,7 @@ td {
 				  <div class="col-md-6 col-sm-6 col-xs-12 has-feedback">
 					<label for="tgl" class="col-md-4 control-label"></label>
 					<div class="col-md-8">
-						
+
 					</div>
 				  </div>
 			  </div>
@@ -162,13 +162,13 @@ td {
 					</tr>
 				  </thead>
 				  <tbody id="create_detail">
-					<?php 
+					<?php
 					if($num_rows_detail > 0) {
 					$no = 1;
 					$subtotal = 0;
 					foreach($result_detail as $row) {
-						$params = $row['tod_id'].'|'.$row['mp_id'].'|'.$row['mp_code'].'|'.$row['mp_category'].'|'.$row['mp_name'].'|'.$row['mu_code'].'|'.$row['mu_name'].'|'.$row['msp_price'];
-						
+						$params = $row['tod_id'].'|'.$row['mp_id'].'|'.$row['mp_code'].'|'.$row['mp_category'].'|'.$row['mp_name'].'|'.$row['mu_code'].'|'.$row['mu_name'].'|'.$row['msp_price'].'|'.$row['mbp_price'];
+
 						$hide = (floatval($row['jml_terima']) >= floatval($row['tod_qty']) ? ' class="hidden"' : NULL);
 						$d_date = explode('-',$row['td_delivery_date']);
 						$ddate = ($row['td_delivery_date'] != '' ? $d_date[1].'/'.$d_date[2].'/'.$d_date[0] : NULL);
@@ -309,9 +309,9 @@ td {
 			<h4 class="modal-title" id="myModalLabel">Pilih Item</h4>
 		  </div>
 		  <div class="modal-body" id="myModalBody">
-			
+
 		  </div>
-		  
+
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 			<button id="submit_modal" type="button" class="btn btn-success">Pilih</button>
