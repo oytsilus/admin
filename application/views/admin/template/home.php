@@ -113,41 +113,41 @@
                           <ul class="nav child_menu">
                             <li><a href="<?php echo base_url('m_price'); ?>">Daftar Harga</a>
                             </li>
-							<li class="sub_menu"><a href="<?php echo base_url('m_price/create'); ?>">Set Harga</a>
+	                          <li class="sub_menu"><a href="<?php echo base_url('m_price/create'); ?>">Set Harga</a>
                             </li>
                           </ul>
                         </li>
                     </ul>
-                  </li>
-				  <li><a><i class="fa fa-money"></i>Pembelian <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a>Purchase Order<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url('purchase_order'); ?>">Daftar PO</a>
-                            </li>
-                            <li><a href="<?php echo base_url('purchase_order/create'); ?>">Buat PO Baru</a>
-                            </li>
-                          </ul>
-					  </li>
-					  <li><a>Penerimaan Barang	<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url('receiving'); ?>">Daftar Terima Barang</a>
-                            </li>
-                            <li><a href="<?php echo base_url('receiving/create'); ?>">Buat Penerimaan Baru</a>
-                            </li>
-                          </ul>
-					  </li>
-					  <li><a>Pembayaran<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url('purchase_payment'); ?>">Daftar Pembayaran</a>
-                            </li>
-                            <li><a href="<?php echo base_url('purchase_payment/create'); ?>">Buat Pembayaran</a>
-                            </li>
-                          </ul>
-					  </li>
-                    </ul>
-                  </li>
-				  <li><a><i class="fa fa-money"></i>Penjualan <span class="fa fa-chevron-down"></span></a>
+            </li>
+            <li><a><i class="fa fa-money"></i>Pembelian <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                  <li><a>Purchase Order<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url('purchase_order'); ?>">Daftar PO</a>
+                        </li>
+                        <li><a href="<?php echo base_url('purchase_order/create'); ?>">Buat PO Baru</a>
+                        </li>
+                      </ul>
+                   </li>
+					         <li><a>Penerimaan Barang	<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url('receiving'); ?>">Daftar Terima Barang</a>
+                        </li>
+                        <li><a href="<?php echo base_url('receiving/create'); ?>">Buat Penerimaan Baru</a>
+                        </li>
+                      </ul>
+					         </li>
+      					   <li><a>Pembayaran<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url('purchase_payment'); ?>">Daftar Pembayaran</a>
+                        </li>
+                        <li><a href="<?php echo base_url('purchase_payment/create'); ?>">Buat Pembayaran</a>
+                        </li>
+                      </ul>
+      					   </li>
+              </ul>
+            </li>
+            <li><a><i class="fa fa-money"></i>Penjualan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a>Sales Order<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
